@@ -1,0 +1,152 @@
+/* ===== Paleta de Hotel Paradise ===== */
+:root {
+  --color-principal: #0b7285;
+  --color-principal-oscuro: #095c6b;
+  --color-acento: #f4a261;
+  --color-fondo: #f5f9fa;
+  --color-texto: #2b3a42;
+}
+
+/* ===== Base ===== */
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+h1, h2, h3 {
+  color: var(--color-principal-oscuro);
+  font-weight: 600;
+}
+
+/* ===== Barra de navegación ===== */
+.navbar.bg-primary {
+  background-color: var(--color-principal) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar .nav-link {
+  transition: color 0.2s, border-color 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #fff !important;
+  border-bottom-color: var(--color-acento);
+}
+
+/* ===== Botones ===== */
+.btn-primary {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-principal-oscuro);
+  border-color: var(--color-principal-oscuro);
+}
+
+.btn-warning {
+  background-color: var(--color-acento);
+  border-color: var(--color-acento);
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background-color: #e08a45;
+  border-color: #e08a45;
+  color: #fff;
+}
+
+/* ===== Tarjetas ===== */
+.card {
+  border: none;
+  border-radius: 12px;
+}
+
+.card.shadow-sm:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Tarjetas del dashboard */
+.tarjeta-dato {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-left: 5px solid var(--color-acento);
+}
+
+.tarjeta-dato .numero {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-principal);
+}
+
+/* ===== Tablas ===== */
+.table thead.table-dark {
+  background-color: var(--color-principal-oscuro);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(11, 114, 133, 0.08);
+}
+
+/* ===== Formularios ===== */
+form label {
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: var(--color-principal);
+  box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.2);
+}
+
+.errorlist {
+  color: #c0392b;
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.9rem;
+}
+
+/* ===== Footer ===== */
+footer {
+  background-color: #fff;
+  font-size: 0.9rem;
+}
+
+/* ===== Pantallas pequeñas ===== */
+@media (max-width: 576px) {
+  main.container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .tarjeta-dato .numero {
+    font-size: 1.8rem;
+  }
+}
