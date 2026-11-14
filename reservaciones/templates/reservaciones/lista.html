@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservaciones</title>
+</head>
+<body>
+    <h1>Reservaciones</h1>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <a href="{% url 'reservaciones:crear' %}">+ Nueva reservación</a>
+    <hr>
+
+    <table border="1" cellpadding="6">
+        <tr>
+            <th>ID</th><th>Cliente</th><th>Habitación</th><th>Entrada</th>
+            <th>Salida</th><th>Noches</th><th>Costo</th><th>Estado</th><th>Acciones</th>
+        </tr>
+        {% for r in reservaciones %}
+        <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ r.cliente }}</td>
+            <td>{{ r.habitacion }}</td>
+            <td>{{ r.fecha_entrada }}</td>
+            <td>{{ r.fecha_salida }}</td>
+            <td>{{ r.noches }}</td>
+            <td>${{ r.costo_total }}</td>
+            <td>{{ r.get_estado_display }}</td>
+            <td>
+                <a href="{% url 'reservaciones:detalle' r.pk %}">Ver</a>
+                {% if r.estado == "activa" %}
+                | <a href="{% url 'reservaciones:editar' r.pk %}">Editar</a>
+                | <a href="{% url 'reservaciones:cancelar' r.pk %}">Cancelar</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9">No hay reservaciones todavía.</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
