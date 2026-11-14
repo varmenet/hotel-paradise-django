@@ -1,10 +1,21 @@
-<h1>{{ cliente }}</h1>
-<ul>
-  <li>Nombre: {{ cliente.nombre }}</li>
-  <li>Apellidos: {{ cliente.apellidos }}</li>
-  <li>Correo: {{ cliente.correo }}</li>
-  <li>Teléfono: {{ cliente.telefono }}</li>
-  <li>Fecha de registro: {{ cliente.fecha_registro }}</li>
-</ul>
-<a href="{% url 'clientes:editar' cliente.pk %}">Editar</a>
-<a href="{% url 'clientes:lista' %}">Volver</a>
+{% extends "base.html" %}
+{% block title %}{{ cliente }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title mb-3">{{ cliente.nombre }} {{ cliente.apellidos }}</h3>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item"><strong>Correo:</strong> {{ cliente.correo }}</li>
+          <li class="list-group-item"><strong>Teléfono:</strong> {{ cliente.telefono }}</li>
+          <li class="list-group-item"><strong>Fecha de registro:</strong> {{ cliente.fecha_registro|date:"d/m/Y" }}</li>
+        </ul>
+        <a href="{% url 'clientes:editar' cliente.pk %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'clientes:lista' %}" class="btn btn-secondary">Volver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

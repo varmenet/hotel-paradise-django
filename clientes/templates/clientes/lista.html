@@ -1,32 +1,57 @@
-<h1>Clientes</h1>
-{% include "clientes/_mensajes.html" %}
+{% extends "base.html" %}
+{% block title %}Clientes{% endblock %}
 
-<form method="get">
-  <input type="text" name="q" value="{{ q }}" placeholder="Buscar por nombre o correo">
-  <button type="submit">Buscar</button>
-  <a href="{% url 'clientes:lista' %}">Limpiar</a>
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Clientes</h2>
+  <a href="{% url 'clientes:crear' %}" class="btn btn-success">+ Nuevo cliente</a>
+</div>
+
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-8">
+    <input type="text" name="q" value="{{ q }}" class="form-control"
+           placeholder="Buscar por nombre, apellidos o correo">
+  </div>
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+    <a href="{% url 'clientes:lista' %}" class="btn btn-secondary">Limpiar</a>
+  </div>
 </form>
 
-<p><a href="{% url 'clientes:crear' %}">Nuevo cliente</a></p>
-
-<table border="1">
-  <tr>
-    <th>Nombre</th><th>Apellidos</th><th>Correo</th><th>Teléfono</th><th>Registro</th><th>Acciones</th>
-  </tr>
-  {% for c in clientes %}
-  <tr>
-    <td>{{ c.nombre }}</td>
-    <td>{{ c.apellidos }}</td>
-    <td>{{ c.correo }}</td>
-    <td>{{ c.telefono }}</td>
-    <td>{{ c.fecha_registro }}</td>
-    <td>
-      <a href="{% url 'clientes:detalle' c.pk %}">Ver</a>
-      <a href="{% url 'clientes:editar' c.pk %}">Editar</a>
-      <a href="{% url 'clientes:eliminar' c.pk %}">Eliminar</a>
-    </td>
-  </tr>
-  {% empty %}
-  <tr><td colspan="6">No hay clientes.</td></tr>
-  {% endfor %}
-</table>
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Registro</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in clientes %}
+      <tr>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.apellidos }}</td>
+        <td>{{ c.correo }}</td>
+        <td>{{ c.telefono }}</td>
+        <td>{{ c.fecha_registro|date:"d/m/Y" }}</td>
+        <td>
+          <a href="{% url 'clientes:detalle' c.pk %}" class="btn btn-sm btn-info text-white">Ver</a>
+          <a href="{% url 'clientes:editar' c.pk %}" class="btn btn-sm btn-warning">Editar</a>
+          <a href="{% url 'clientes:eliminar' c.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">
+          {% if q %}No se encontraron clientes para "{{ q }}".{% else %}No hay clientes registrados.{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
