@@ -25,6 +25,6 @@ urlpatterns = [
     path('habitaciones/', include('habitaciones.urls')),
     path('clientes/', include('clientes.urls')),
     path('reservaciones/', include('reservaciones.urls')),
-    path('dashboard/', include('dashboard.urls')),
+    #path('dashboard/', include('dashboard.urls')),
     path('', TemplateView.as_view(template_name='inicio.html'), name='inicio'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
