@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Habitación</title>
+</head>
+<body>
+    <h1>Editar Habitación {{ habitacion.numero }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Imagen actual:</p>
+        <img src="{{ habitacion.imagen.url }}" alt="Habitación {{ habitacion.numero }}" width="200">
+        <button type="submit">Actualizar</button>
+        <a href="{% url 'lista_habitaciones' %}">Cancelar</a>
+    </form>
+</body>
+</html>

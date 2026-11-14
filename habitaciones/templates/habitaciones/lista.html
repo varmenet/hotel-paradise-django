@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Habitaciones</title>
+</head>
+<body>
+    <h1>Habitaciones Disponibles</h1>
+    
+    <a href="{% url 'crear_habitacion' %}">+ Agregar Habitación</a>
+    <hr>
+
+    <ul>
+        {% for habitacion in habitaciones %}
+            <li>
+                <strong>Habitación {{ habitacion.numero }}</strong> - {{ habitacion.tipo }} (${{ habitacion.precio }})
+                | <a href="{% url 'editar_habitacion' habitacion.numero %}">Editar</a>
+                | <a href="{% url 'eliminar_habitacion' habitacion.numero %}">Eliminar</a>
+                | <img src="{{ habitacion.imagen.url }}" alt="Habitación {{ habitacion.numero }}" width="120">
+            </li>
+        {% empty %}
+            <li>No hay habitaciones registradas todavía.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

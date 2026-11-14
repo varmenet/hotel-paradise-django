@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Habitación</title>
+</head>
+<body>
+    <h1>¿Eliminar Habitación {{ habitacion.numero }}?</h1>
+    <p>Estás a punto de eliminar la habitación <strong>{{ habitacion.numero }} - {{ habitacion.tipo }}</strong>. Esta acción no se puede deshacer.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, eliminar</button>
+        <a href="{% url 'lista_habitaciones' %}">Cancelar</a>
+    </form>
+</body>
+</html>
