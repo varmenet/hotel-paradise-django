@@ -1,16 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Cancelar reservación</title>
-</head>
-<body>
-    <h1>Cancelar reservación #{{ reservacion.id }}</h1>
-    <p>¿Seguro que quieres cancelar la reservación de {{ reservacion.cliente }}?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, cancelar</button>
-        <a href="{% url 'reservaciones:lista' %}">No, volver</a>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Cancelar reservación{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card border-danger shadow-sm">
+      <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Cancelar reservación #{{ reservacion.id }}</h4>
+      </div>
+
+      <div class="card-body">
+        <p class="mb-4">
+          ¿Seguro que quieres cancelar la reservación de
+          <strong>{{ reservacion.cliente }}</strong>?
+        </p>
+
+                <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Sí, cancelar</button>
+          <a href="{% url 'reservaciones:lista' %}" class="btn btn-secondary">No, volver</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,18 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Reservación #{{ reservacion.id }}</title>
-</head>
-<body>
-    <h1>Reservación #{{ reservacion.id }}</h1>
-    <p><strong>Cliente:</strong> {{ reservacion.cliente }}</p>
-    <p><strong>Habitación:</strong> {{ reservacion.habitacion }}</p>
-    <p><strong>Entrada:</strong> {{ reservacion.fecha_entrada }}</p>
-    <p><strong>Salida:</strong> {{ reservacion.fecha_salida }}</p>
-    <p><strong>Noches:</strong> {{ reservacion.noches }}</p>
-    <p><strong>Costo total:</strong> ${{ reservacion.costo_total }}</p>
-    <p><strong>Estado:</strong> {{ reservacion.get_estado_display }}</p>
-    <a href="{% url 'reservaciones:lista' %}">Volver</a>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Reservación #{{ reservacion.id }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Reservación #{{ reservacion.id }}</h4>
+        {% if reservacion.estado == "activa" %}
+          <span class="badge bg-success">{{ reservacion.get_estado_display }}</span>
+        {% else %}
+          <span class="badge bg-secondary">{{ reservacion.get_estado_display }}</span>
+        {% endif %}
+      </div>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Cliente:</strong> {{ reservacion.cliente }}</li>
+        <li class="list-group-item"><strong>Habitación:</strong> {{ reservacion.habitacion }}</li>
+        <li class="list-group-item"><strong>Entrada:</strong> {{ reservacion.fecha_entrada|date:"d/m/Y" }}</li>
+        <li class="list-group-item"><strong>Salida:</strong> {{ reservacion.fecha_salida|date:"d/m/Y" }}</li>
+        <li class="list-group-item"><strong>Noches:</strong> {{ reservacion.noches }}</li>
+        <li class="list-group-item"><strong>Costo total:</strong> ${{ reservacion.costo_total|floatformat:2 }}</li>
+      </ul>
+
+      <div class="card-footer">
+        {% if reservacion.estado == "activa" %}
+          <a href="{% url 'reservaciones:editar' reservacion.pk %}" class="btn btn-warning">Editar</a>
+          <a href="{% url 'reservaciones:cancelar' reservacion.pk %}" class="btn btn-danger">Cancelar</a>
+        {% endif %}
+        <a href="{% url 'reservaciones:lista' %}" class="btn btn-secondary">Volver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
