@@ -1,0 +1,10 @@
+<h1>{{ cliente }}</h1>
+<ul>
+  <li>Nombre: {{ cliente.nombre }}</li>
+  <li>Apellidos: {{ cliente.apellidos }}</li>
+  <li>Correo: {{ cliente.correo }}</li>
+  <li>Teléfono: {{ cliente.telefono }}</li>
+  <li>Fecha de registro: {{ cliente.fecha_registro }}</li>
+</ul>
+<a href="{% url 'clientes:editar' cliente.pk %}">Editar</a>
+<a href="{% url 'clientes:lista' %}">Volver</a>
