@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservación #{{ reservacion.id }}</title>
+</head>
+<body>
+    <h1>Reservación #{{ reservacion.id }}</h1>
+    <p><strong>Cliente:</strong> {{ reservacion.cliente }}</p>
+    <p><strong>Habitación:</strong> {{ reservacion.habitacion }}</p>
+    <p><strong>Entrada:</strong> {{ reservacion.fecha_entrada }}</p>
+    <p><strong>Salida:</strong> {{ reservacion.fecha_salida }}</p>
+    <p><strong>Noches:</strong> {{ reservacion.noches }}</p>
+    <p><strong>Costo total:</strong> ${{ reservacion.costo_total }}</p>
+    <p><strong>Estado:</strong> {{ reservacion.get_estado_display }}</p>
+    <a href="{% url 'reservaciones:lista' %}">Volver</a>
+</body>
+</html>

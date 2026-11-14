@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cancelar reservación</title>
+</head>
+<body>
+    <h1>Cancelar reservación #{{ reservacion.id }}</h1>
+    <p>¿Seguro que quieres cancelar la reservación de {{ reservacion.cliente }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, cancelar</button>
+        <a href="{% url 'reservaciones:lista' %}">No, volver</a>
+    </form>
+</body>
+</html>
