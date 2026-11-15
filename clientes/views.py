@@ -1,4 +1,6 @@
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import ProtectedError, Q
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -6,6 +8,8 @@ from .forms import ClienteForm
 from .models import Cliente
 
 
+@login_required
+@permission_required("clientes.view_cliente", raise_exception=True)
 def lista_clientes(request):
     q = request.GET.get("q", "").strip()
     clientes = Cliente.objects.all()
@@ -18,11 +22,15 @@ def lista_clientes(request):
     return render(request, "clientes/lista.html", {"clientes": clientes, "q": q})
 
 
+@login_required
+@permission_required("clientes.view_cliente", raise_exception=True)
 def detalle_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     return render(request, "clientes/detalle.html", {"cliente": cliente})
 
 
+@login_required
+@permission_required("clientes.add_cliente", raise_exception=True)
 def crear_cliente(request):
     form = ClienteForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
@@ -32,6 +40,8 @@ def crear_cliente(request):
     return render(request, "clientes/form.html", {"form": form, "titulo": "Nuevo cliente"})
 
 
+@login_required
+@permission_required("clientes.change_cliente", raise_exception=True)
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     form = ClienteForm(request.POST or None, instance=cliente)
@@ -42,6 +52,8 @@ def editar_cliente(request, pk):
     return render(request, "clientes/form.html", {"form": form, "titulo": "Editar cliente"})
 
 
+@login_required
+@permission_required("clientes.delete_cliente", raise_exception=True)
 def eliminar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == "POST":
