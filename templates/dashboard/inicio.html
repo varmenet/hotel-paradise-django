@@ -1,0 +1,93 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Hotel Paradise{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Dashboard del Hotel</h2>
+
+<div class="row g-3 mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6>Habitaciones</h6>
+                <h2>{{ habitaciones }}</h2>
+                <p>Disponibles: {{ habitaciones_disponibles }}</p>
+                <p>No disponibles: {{ habitaciones_no_disponibles }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6>Clientes registrados</h6>
+                <h2>{{ clientes }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6>Reservaciones</h6>
+                <h2>{{ reservaciones }}</h2>
+                <p>Activas: {{ reservaciones_activas }}</p>
+                <p>Canceladas: {{ reservaciones_canceladas }}</p>
+                <p>Finalizadas: {{ reservaciones_finalizadas }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6>Importe de reservaciones</h6>
+                <h2>${{ importe_reservaciones|floatformat:2 }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<h4 class="mb-3">Últimas reservaciones</h4>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Habitación</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Estado</th>
+                <th>Costo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservacion in ultimas_reservaciones %}
+            <tr>
+                <td>{{ reservacion.id }}</td>
+                <td>{{ reservacion.cliente }}</td>
+                <td>{{ reservacion.habitacion }}</td>
+                <td>{{ reservacion.fecha_entrada|date:"d/m/Y" }}</td>
+                <td>{{ reservacion.fecha_salida|date:"d/m/Y" }}</td>
+                <td>{{ reservacion.get_estado_display }}</td>
+                <td>${{ reservacion.costo_total|floatformat:2 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">
+                    No hay reservaciones registradas.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
